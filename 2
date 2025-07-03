@@ -1,0 +1,36 @@
+class Navegador:
+    def __init__(self, pagina_inicial):
+        self.pagina_atual = pagina_inicial
+        self.historico_voltar = []
+        self.historico_avancar = []
+
+    def visitar_pagina(self, url):
+        self.historico_voltar.append(self.pagina_atual)
+        self.pagina_atual = url
+        self.historico_avancar.clear()
+        print(f"Visitando: {self.pagina_atual}")
+
+    def voltar(self):
+        if self.historico_voltar:
+            self.historico_avancar.append(self.pagina_atual)
+            self.pagina_atual = self.historico_voltar.pop()
+            print(f"Voltando para: {self.pagina_atual}")
+        else:
+            print("Não há páginas para voltar.")
+
+    def avancar(self):
+        if self.historico_avancar:
+            self.historico_voltar.append(self.pagina_atual)
+            self.pagina_atual = self.historico_avancar.pop()
+            print(f"Avançando para: {self.pagina_atual}")
+        else:
+            print("Não há páginas para avançar.")
+
+navegador = Navegador("google.com")
+navegador.visitar_pagina("youtube.com")
+navegador.visitar_pagina("github.com")
+navegador.voltar()
+navegador.voltar()
+navegador.avancar()
+navegador.visitar_pagina("replit.com")
+navegador.voltar()
