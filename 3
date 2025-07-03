@@ -1,0 +1,60 @@
+class No:
+    def __init__(self, nome):
+        self.nome = nome
+        self.proximo = None
+
+class FilaAtendimento:
+    def __init__(self):
+        self.inicio = None
+        self.fim = None
+
+    def esta_vazia(self):
+        return self.inicio is None
+
+    def adicionar_cliente(self, nome):
+        novo_no = No(nome)
+        if self.esta_vazia():
+            self.inicio = self.fim = novo_no
+        else:
+            self.fim.proximo = novo_no
+            self.fim = novo_no
+        print(f"'{nome}' entrou na fila.")
+
+    def atender_cliente(self):
+        if self.esta_vazia():
+            print("Fila vazia.Ninguem para atender.")
+        else:
+            nome = self.inicio.nome
+            self.inicio = self.inicio.proximo
+            if self.inicio is None:
+                self.fim = None
+            print(f"'{nome}' foi atendido.")
+
+    def mostrar_fila(self):
+        if self.esta_vazia():
+            print("Fila vazia.")
+            return
+        atual = self.inicio
+        print("Fila atual:", end=" ")
+        while atual:
+            print(f"[{atual.nome}]", end=" -> ")
+            atual = atual.proximo
+        print("None")
+
+
+fila = FilaAtendimento()
+
+fila.adicionar_cliente("Pedro")
+fila.adicionar_cliente("Maria")
+fila.adicionar_cliente("Marcos")
+fila.mostrar_fila()
+
+fila.atender_cliente()
+fila.mostrar_fila()
+
+fila.adicionar_cliente("Fernanda")
+fila.mostrar_fila()
+
+while not fila.esta_vazia():
+    fila.atender_cliente()
+    fila.mostrar_fila()
