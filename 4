@@ -1,0 +1,29 @@
+import random
+from collections import deque
+
+def simular_batata_quente(lista_nomes, num_passes):
+    fila = deque(lista_nomes) 
+
+    while len(fila) > 1:
+        print(f"\nRodada com {num_passes} passes:")
+        for _ in range(num_passes):
+            pessoa = fila.popleft()   
+            fila.append(pessoa)       
+            print(f"{pessoa} passou a batata")
+
+        eliminado = fila.popleft()    
+        print(f"{eliminado} foi eliminado!")
+
+    vencedor = fila[0]
+    print(f"vencedor é: {vencedor} ")
+    return vencedor
+
+if __name__ == "__main__":
+    jogadores = ["Pedro", "Breno", "Guilherme", "Cauã", "Maria", "Ana"]
+    num_passes = random.randint(5, 15)
+
+    print("Começando o jogo")
+    print(f"Participantes: {', '.join(jogadores)}")
+    print(f"Número de passes por rodada: {num_passes}")
+
+    vencedor = simular_batata_quente(jogadores, num_passes)
